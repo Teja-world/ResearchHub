@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collaborative Platform</title>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: url('student.jpg') no-repeat center center;
+      background-attachment: fixed;
+      background-size: cover;
+      background-color: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    
+    header {
+      background-color: #d0004cb8;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin-bottom: 10px;
+    }
+
+    main {
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    h2 {
+      margin-bottom: 15px;
+      color: #D0004B;
+    }
+
+    form {
+      background: rgba(255, 255, 255, 0.712);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    form button {
+      background-color: white;
+      color: #D0004B;
+      padding: 10px 15px;
+      outline: 2px solid #D0004B;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    form button:hover {
+      background-color: #D0004B;
+      color: white;
+    }
+
+    .work-list {
+      margin-top: 20px;
+    }
+
+    .work {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .work h3 {
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .work p {
+      margin-bottom: 5px;
+    }
+
+    .work button {
+      background-color: white;
+      color: #D0004B;
+      outline: 2px solid #D0004B;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .work button:hover {
+      background-color:#D0004B;
+      color: white;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #f1f1f1;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Collaborative Platform</h1>
+    <p>View and join exciting works posted by faculty!</p>
+  </header>
+  
+  <main>
+    <!-- Faculty Work Submission -->
+    <section id="post-work">
+      <h2>Post Your Work</h2>
+      <form id="work-form">
+        <label for="work-title">Title:</label>
+        <input type="text" id="work-title" required>
+        
+        <label for="work-description">Description:</label>
+        <textarea id="work-description" rows="4" required></textarea>
+        
+        <label for="faculty-name">Faculty Name:</label>
+        <input type="text" id="faculty-name" required>
+        
+        <button type="submit">Post Work</button>
+      </form>
+    </section>
+    
+    <!-- Works Section -->
+    <section id="works">
+      <h2>Explore Faculty Works</h2>
+      <div id="work-list" class="work-list">
+        <!-- Works will be dynamically added here -->
+      </div>
+    </section>
+  </main>
+  
+  <footer>
+    <p>&copy; 2024 Collaborative Platform</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const workForm = document.getElementById('work-form');
+      const workList = document.getElementById('work-list');
+
+      // Handle work submission
+      workForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // Get form values
+        const title = document.getElementById('work-title').value;
+        const description = document.getElementById('work-description').value;
+        const facultyName = document.getElementById('faculty-name').value;
+
+        // Create a new work card
+        const workCard = document.createElement('div');
+        workCard.classList.add('work');
+        workCard.innerHTML = `
+          <h3>${title}</h3>
+          <p>${description}</p>
+          <p><strong>Faculty:</strong> ${facultyName}</p>
+          <button class="request-join">Request to Join</button>
+        `;
+
+        // Add the work card to the list
+        workList.appendChild(workCard);
+
+        // Clear the form
+        workForm.reset();
+
+        // Add request to join functionality
+        workCard.querySelector('.request-join').addEventListener('click', () => {
+          // Save work details in localStorage
+          localStorage.setItem('workTitle', title);
+          localStorage.setItem('workDescription', description);
+          localStorage.setItem('workFaculty', facultyName);
+
+          // Redirect to the request page
+          window.location.href = 'Request to join.html';
+        });
+      });
+    });
+  </script>
+</body>
+</html>

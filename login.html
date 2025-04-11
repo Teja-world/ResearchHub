@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Sign Up</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: url('amritacampus.jpg') no-repeat center center;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+        .container {
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            width: 400px;
+            padding: 30px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+            display: block;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #333;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #D0004B;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #D0004B;
+        }
+        .toggle-text {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .toggle-text a {
+            color: #D0004B;
+            text-decoration: none;
+        }
+        .toggle-text a:hover {
+            text-decoration: underline;
+        }
+        .hidden {
+            display: none;
+        }
+        #toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            display: none;
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <!-- Login Form -->
+            <div class="form-box" id="loginBox">
+                <h2>Login</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="login-username">Username</label>
+                        <input type="text" id="login-username" name="username" placeholder="Enter your username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" name="password" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit">Login</button>
+                    <p id="login-error-message"></p>
+                    <p class="toggle-text">
+                        Don't have an account? <a href="#" id="showSignUp">Sign Up</a>
+                    </p>
+                </form>
+            </div>
+
+            <!-- Sign-Up Form -->
+            <div class="form-box hidden" id="signUpBox">
+                <h2>Sign Up</h2>
+                <form id="signUpForm">
+                    <div class="form-group">
+                        <label for="signup-username">Username</label>
+                        <input type="text" id="signup-username" name="username" placeholder="Choose a username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" name="password" placeholder="Choose a password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-email">Email</label>
+                        <input type="email" id="signup-email" name="email" placeholder="Enter your College Email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-type">User Type</label>
+                        <select id="user-type" name="userType" required>
+                            <option value="" disabled selected>Select User Type</option>
+                            <option value="Student">Student</option>
+                            <option value="Faculty">Faculty</option>
+                        </select>
+                    </div>
+
+                    <!-- Student Fields -->
+                    <div id="studentFields" class="hidden">
+                        <div class="form-group">
+                            <label for="student-id">Student ID</label>
+                            <input type="text" id="student-id" name="studentId" placeholder="Enter your Student ID">
+                        </div>
+                        <div class="form-group">
+                            <label for="course-name">Course Name</label>
+                            <input type="text" id="course-name" name="courseName" placeholder="Enter your Course Name">
+                        </div>
+                    </div>
+
+                    <!-- Faculty Fields -->
+                    <div id="facultyFields" class="hidden">
+                        <div class="form-group">
+                            <label for="faculty-id">Faculty ID</label>
+                            <input type="text" id="faculty-id" name="facultyId" placeholder="Enter your Faculty ID">
+                        </div>
+                        <div class="form-group">
+                            <label for="department-name">Department Name</label>
+                            <input type="text" id="department-name" name="departmentName" placeholder="Enter your Department Name">
+                        </div>
+                    </div>
+
+                    <button type="submit">Sign Up</button>
+                    <p id="signup-error-message"></p>
+                    <p class="toggle-text">
+                        Already have an account? <a href="#" id="showLogin">Login</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="hidden">You selected: Student</div>
+
+    <script>
+        // DOM Elements
+        const loginBox = document.getElementById('loginBox');
+        const signUpBox = document.getElementById('signUpBox');
+        const showSignUp = document.getElementById('showSignUp');
+        const showLogin = document.getElementById('showLogin');
+
+        const loginForm = document.getElementById('loginForm');
+        const signUpForm = document.getElementById('signUpForm');
+
+        const loginErrorMessage = document.getElementById('login-error-message');
+        const signUpErrorMessage = document.getElementById('signup-error-message');
+
+        const userTypeSelect = document.getElementById('user-type');
+        const studentFields = document.getElementById('studentFields');
+        const facultyFields = document.getElementById('facultyFields');
+        const toast = document.getElementById('toast');
+
+        // Toggle Forms
+        showSignUp.addEventListener('click', () => {
+            loginBox.classList.add('hidden');
+            signUpBox.classList.remove('hidden');
+        });
+
+        showLogin.addEventListener('click', () => {
+            signUpBox.classList.add('hidden');
+            loginBox.classList.remove('hidden');
+        });
+
+        // Show relevant fields based on user type
+        userTypeSelect.addEventListener('change', () => {
+            const selectedType = userTypeSelect.value;
+
+            studentFields.classList.add('hidden');
+            facultyFields.classList.add('hidden');
+
+            if (selectedType === 'Student') {
+                studentFields.classList.remove('hidden');
+            } else if (selectedType === 'Faculty') {
+                facultyFields.classList.remove('hidden');
+            }
+
+            // Show toast notification
+            toast.classList.remove('hidden');
+            toast.textContent = 'You selected: ${selectedType}';
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 2000);
+        });
+
+        // Login Form Submit (updated to match sign-up functionality)
+        loginForm.addEventListener('submit', (event) => {
+            event.preventDefault();  // Prevent form submission
+
+            const userData = {
+                username: document.getElementById('login-username').value,
+                password: document.getElementById('login-password').value,
+            };
+
+            // Sample authentication logic (replace with real backend validation)
+            if (userData.username && userData.password) {
+                // If credentials are correct (replace with actual validation)
+                alert('Login successful! Redirecting...');
+                window.location.href = 'homesample.html';  // Redirect to homesample page
+            } else {
+                // If validation fails, show error message
+                loginErrorMessage.textContent = 'Invalid username or password!';
+            }
+        });
+
+        // Sign-Up Form Submit (unchanged)
+        signUpForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const userData = {
+                username: document.getElementById('signup-username').value,
+                password: document.getElementById('signup-password').value,
+                email: document.getElementById('signup-email').value,
+                userType: userTypeSelect.value,
+                studentId: document.getElementById('student-id').value,
+                courseName: document.getElementById('course-name').value,
+                facultyId: document.getElementById('faculty-id').value,
+                departmentName: document.getElementById('department-name').value
+            };
+
+            // Sample sign-up logic (replace with real backend validation)
+            if (userData.username && userData.password && userData.email) {
+                // Redirect to homesample.html or handle successful sign-up logic
+                alert('Sign-up successful! Redirecting...');
+                window.location.href = 'homesample.html';  // Redirect to homesample page
+            } else {
+                signUpErrorMessage.textContent = 'Please fill in all fields!';
+            }
+        });
+    </script>
+</body>
+</html>

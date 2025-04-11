@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mentorship - ResearchHub</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Header */
+    header {
+      background:linear-gradient(rgba(14, 14, 14, 0.75), rgba(14, 14, 14, 0.70)), 
+      url('amritacampus.jpg');
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    header nav a {
+      margin: 0 1rem;
+      color: white;
+      text-decoration: none;
+    }
+
+    header nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* Mentorship Section */
+    .mentorship-header {
+      text-align: center;
+      padding: 3rem 1rem;
+      background-color: #D0004B;
+      color: white;
+    }
+
+    .mentorship-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .mentorship-header p {
+      font-size: 1.2rem;
+    }
+
+    /* Faculty Profiles */
+    .faculty-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+
+    .faculty-card {
+      background: rgba(255, 220, 220, 0.288); /* Black card background */
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.75), 0 0 10px rgba(45, 137, 239, 0.70); /* Glowing effect */
+      padding: 1.5rem;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+      color: black; /* Text color white */
+    }
+
+    .faculty-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 20px #D0004B(45, 137, 239, 1); /* Stronger glow on hover */
+    }
+
+    .faculty-card .photo-holder {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 1rem; /* Center the photo */
+      border: 4px solid #D0004B(45, 137, 239, 0.7); /* Blue border for photo holder */
+      box-shadow: 0 0 8px #D0004B(45, 137, 239, 1); /* Glow effect */
+    }
+
+    .faculty-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .faculty-card h3 {
+      color: #D0004B;
+      margin-bottom: 0.5rem;
+    }
+
+    .faculty-card p {
+      color: black;
+      font-size: 1rem;
+    }
+
+    .faculty-card .btn {
+      margin-top: 1rem;
+      padding: 0.75rem 1.5rem;
+      background-color: white;
+      color: #D0004B;
+      border: none;
+      outline: 2px solid #D0004B;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .faculty-card .btn:hover {
+      background-color: #D0004B;
+      color: white;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #D0004B;
+      color: white;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">ResearchHub</div>
+    <nav>
+      <a href="homesample.html">About Us</a>
+      <a href="project.html">Projects</a>
+      <a href="mentorship.html">Mentorship</a>
+      <a href="forums.html">Forums</a>
+      <a href="resource.html">Resources</a>
+    </nav>
+  </header>
+
+  <div class="mentorship-header">
+    <h1>Find a Mentor</h1>
+    <p>Browse through our esteemed faculty members and connect with a mentor for your research projects.</p>
+  </div>
+
+  <div class="faculty-container" id="faculty-container">
+    <!-- Faculty profiles will be dynamically added here -->
+  </div>
+
+  <footer>
+    &copy; 2024 ResearchHub. All rights reserved.
+  </footer>
+
+  <script>
+    // Sample faculty data, this can come from a database or API
+    const facultyMembers = [
+      {
+        name: "Dr.K. Chandan Kumar ",
+        position: "Assistant Professor",
+        expertise: "Data Structures",
+        imageUrl: "chandan.jpg",
+        email: "k_chandan@av.amrita.edu"
+      },
+      {
+        name: "Dr. Aditya Kumar Sahu",
+        position: "Associate Professor ",
+        expertise: "Convolutional Neural networks ",
+        imageUrl: "sahoo.jpg",
+        email: "s_adityakumar@av.amrita.edu"
+      },
+      {
+        name: "D. Vineela Chandra",
+        position: "Faculty Associate",
+        expertise: "Signal and Image Processing",
+        imageUrl: "vineela.jpg",
+        email: "c_vineela@av.amrita.edu"
+      }
+    ];
+
+    // Function to render faculty profiles
+    function renderFacultyProfiles() {
+      const container = document.getElementById('faculty-container');
+      facultyMembers.forEach(member => {
+        const facultyCard = document.createElement('div');
+        facultyCard.classList.add('faculty-card');
+        facultyCard.innerHTML = `
+          <div class="photo-holder">
+            <img src="${member.imageUrl}" alt="${member.name}">
+          </div>
+          <h3>${member.name}</h3>
+          <p><strong>${member.position}</strong></p>
+          <p>${member.expertise}</p>
+          <a href="mailto:${member.email}" class="btn">Connect</a>
+        `;
+        container.appendChild(facultyCard);
+      });
+    }
+
+    // Call the function to render faculty profiles
+    renderFacultyProfiles();
+  </script>
+</body>
+</html>

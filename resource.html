@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects Gallery with Pop-Up Videos</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0e0e0e;
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Project Category Styles */
+        .project-category {
+            margin-bottom: 40px;
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .category-header h2 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .project-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .project-item {
+            background-color: #333;
+            border-radius: 8px;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+
+        .project-item:hover {
+            transform: scale(1.05);
+        }
+
+        .project-info {
+            flex-grow: 1;
+        }
+
+        .project-info h3 {
+            font-size: 1rem;
+            margin: 0 0 10px;
+        }
+
+        .project-info p {
+            font-size: 0.8rem;
+            color: #bbb;
+        }
+
+        /* Button Styles */
+        .play-video-btn {
+            background-color: #ff6b6b;
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-left: 20px;
+        }
+
+        .play-video-btn:hover {
+            background-color: #e55050;
+        }
+
+        /* Pop-up Styles */
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+
+        #video-popup {
+            position: relative;
+            width: 80%;
+            max-width: 800px;
+            background: #000;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        #video-popup iframe {
+            width: 100%;
+            height: 450px;
+        }
+
+        #close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #f00;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Frontend Projects Section -->
+        <div class="project-category">
+            <div class="category-header">
+                <h2>Frontend Projects Tutorials | React Projects | JavaScript Projects</h2>
+            </div>
+            <div class="project-list">
+                <div class="project-item">
+                    <div class="project-info">
+                        <h3>Build Your Own ChatGPT using React JS and OpenAI</h3>
+                        <p>GeeksforGeeks</p>
+                    </div>
+                    <button class="play-video-btn" data-video="https://www.youtube.com/embed/Qh7u4i_5OQ4?si=4x_LlQZLlOgTXW0K">Play Video</button>
+                </div>
+                <div class="project-item">
+                    <div class="project-info">
+                        <h3>Build a Responsive Sidebar Navigation with React</h3>
+                        <p>GeeksforGeeks</p>
+                    </div>
+                    <button class="play-video-btn" data-video="https://www.youtube.com/embed/BCzuHLKhh2A?si=nL4SQRpUDzKikyv2">Play Video</button>
+                </div>
+                <div class="project-item">
+                    <div class="project-info">
+                        <h3>Creating a WEATHER APP using React.JS</h3>
+                        <p>GeeksforGeeks</p>
+                    </div>
+                    <button class="play-video-btn" data-video="https://www.youtube.com/embed/-xjm3eaBELQ?si=AO-zLUjUhGkefhpg">Play Video</button>
+                </div>
+
+
+                <div class="project-item">
+                    <div class="project-info">
+                        <h3>How to Build a NEUMORPHIC JAVASCRIPT CALCULATOR</h3>
+                        <p>GeeksforGeeks</p>
+                    </div>
+                    <button class="play-video-btn" data-video="https://www.youtube.com/embed/-jrSlKNbOHw">Play Video</button>
+                </div>
+
+                <div class="project-item">
+                    <div class="project-info">
+                        <h3>Build a Responsive PORTFOLIO WEBSITE using React JS</h3>
+                        <p>GeeksforGeeks</p>
+                    </div>
+                    <button class="play-video-btn" data-video="https://www.youtube.com/embed/w67P9N4qc5g">Play Video</button>
+                </div>
+            
+                
+                
+                
+                
+                <div class="category-header">
+                    <h2>MERN Stack Projects | MongoDB, Express.js, React, Node.js | Website Projects</h2>
+                </div>
+                <div class="project-list">
+                    <div class="project-item">
+                        <div class="project-info">
+                            <h3>Build your own AI Image Generation App using MERN</h3>
+                            <p>GeeksforGeeks</p>
+                        </div>
+                        <button class="play-video-btn" data-video="https://www.youtube.com/embed/stcihX2eavw">Play Video</button>
+                    </div> 
+                    
+                    <div class="project-item">
+                        <div class="project-info">
+                            <h3>MERN stack e-book store</h3>
+                            <p>GeeksforGeeks</p>
+                        </div>
+                        <button class="play-video-btn" data-video="https://www.youtube.com/embed/c8tb7vpKASE">Play Video</button>
+                    </div> 
+  
+                    
+                    <div class="project-item">
+                        <div class="project-info">
+                            <h3>Build a Fitness Tracker Website using React JS</h3>
+                            <p>GeeksforGeeks</p>
+                        </div>
+                        <button class="play-video-btn" data-video="https://www.youtube.com/embed/HISjHTE2vnM">Play Video</button>
+                    </div> 
+                    
+                    <div class="project-item">
+                        <div class="project-info">
+                            <h3>Build a Food Delivery Website using React.js</h3>
+                            <p>GeeksforGeeks</p>
+                        </div>
+                        <button class="play-video-btn" data-video="https://www.youtube.com/embed/bd5DewlahnE">Play Video</button>
+                    </div> 
+
+
+                    <div class="project-item">
+                        <div class="project-info">
+                            <h3>Build an Ecommerce Website Like ZARA using React.js</h3>
+                            <p>GeeksforGeeks</p>
+                        </div>
+                        <button class="play-video-btn" data-video="https://www.youtube.com/embed/jk2rhtBJ5S4">Play Video</button>
+                    </div> 
+                    
+                   
+                   
+                   
+                   
+                        <div class="category-header">
+                            <h2>Machine Learning Projects</h2>
+                        </div>
+                        <div class="project-list">
+                            <div class="project-item">
+                                <div class="project-info">
+                                    <h3>Twitter Sentiment Analysis (NLP) | Machine Learning</h3>
+                                    <p>GeeksforGeeks</p>
+                                </div>
+                                <button class="play-video-btn" data-video="https://www.youtube.com/embed/4YGkfAd2iXM">Play Video</button>
+                            </div>
+                    
+                            <div class="project-item">
+                                <div class="project-info">
+                                    <h3>Stock Price Prediction using Machine Learning</h3>
+                                    <p>GeeksforGeeks</p>
+                                </div>
+                                <button class="play-video-btn" data-video="https://www.youtube.com/embed/tn07dCSFOfQ">Play Video</button>
+                            </div>
+                    
+                            <div class="project-item">
+                                <div class="project-info">
+                                    <h3>Diabetes Prediction in Machine Learning using Python</h3>
+                                    <p>GeeksforGeeks</p>
+                                </div>
+                                <button class="play-video-btn" data-video="https://www.youtube.com/embed/AxYgzie4x2E">Play Video</button>
+                            </div>
+                    
+                            <div class="project-item">
+                                <div class="project-info">
+                                    <h3>Air Quality Index Prediction in Python</h3>
+                                    <p>GeeksforGeeks</p>
+                                </div>
+                                <button class="play-video-btn" data-video="https://www.youtube.com/embed/0myaZxl4XWw">Play Video</button>
+                            </div>
+                    
+                            <div class="project-item">
+                                <div class="project-info">
+                                    <h3>FAKE NEWS DETECTION Using MACHINE LEARNING</h3>
+                                    <p>GeeksforGeeks</p>
+                                </div>
+                                <button class="play-video-btn" data-video="https://www.youtube.com/embed/CkiXRQvz4Z4">Play Video</button>
+                            </div>
+                        </div>
+                  
+                    
+                    
+                    
+                    <!-- Add more items similarly -->
+            </div>
+        </div>
+
+        <!-- More project categories can go here... -->
+    </div>
+
+    <!-- The overlay with the video pop-up -->
+    <div id="overlay">
+        <div id="video-popup">
+            <button id="close-btn">X</button>
+            <!-- YouTube video embed -->
+            <iframe id="youtube-video" src="" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to handle the pop-up behavior
+        const overlay = document.getElementById('overlay');
+        const closeBtn = document.getElementById('close-btn');
+        const youtubeVideo = document.getElementById('youtube-video');
+        const playVideoButtons = document.querySelectorAll('.play-video-btn');
+
+        playVideoButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Get the video URL from the button's data attribute
+                const videoURL = button.getAttribute('data-video');
+                youtubeVideo.src = videoURL;
+                overlay.style.display = 'flex';
+            });
+        });
+
+        closeBtn.addEventListener('click', () => {
+            // Stop the video when closing the pop-up
+            youtubeVideo.src = "";
+            overlay.style.display = 'none';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile Page</title>
+
+  <!-- CSS Styles -->
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    /* Background and container styling */
+    body {
+      background: #f4f6f8;
+      padding: 20px;
+      background: url('student.jpg') no-repeat center center;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+    
+    /* Header */
+    header {
+      background: none;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      z-index: 10;
+      box-sizing: border-box;
+    }
+
+    header .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    header nav {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    header nav a {
+      font-size: 1rem;
+      color: white;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      transition: all 0.3s ease-in-out;
+      position: relative;
+    }
+
+    header nav a:hover {
+      color: #D0004B;
+    }
+
+    /* Dropdown Menu */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #333;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      padding: 10px 0;
+      border-radius: 5px;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown-content a {
+      color: white;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #575757;
+    }
+
+    /* Nested Dropdown */
+    .nested-dropdown {
+      position: relative;
+    }
+
+    .nested-dropdown-content {
+      display: none;
+      position: absolute;
+      left: 100%;
+      top: 0;
+      background-color: #333;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      padding: 10px 0;
+      border-radius: 5px;
+    }
+
+    .nested-dropdown:hover .nested-dropdown-content {
+      display: block;
+    }
+    .profile-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    /* Profile header with image */
+    .profile-header {
+      background-color: #D0004B;
+      color: white;
+      padding: 50px 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .profile-header img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 4px solid white;
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      cursor: pointer; /* Make the image clickable */
+    }
+
+    .profile-header h1 {
+      margin-top: 130px;
+      font-size: 32px;
+      font-weight: bold;
+
+    }
+
+    .profile-header p {
+      font-size: 18px;
+      color: #d1d1d1;
+    }
+
+    /* Main content */
+    .content {
+      padding: 20px;
+    }
+
+    /* Section Titles */
+    .section-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #D0004B;
+      padding-bottom: 10px;
+      color: #333;
+    }
+
+    /* About me section */
+    .about-me {
+      margin-bottom: 20px;
+    }
+
+    /* Skills section */
+    .skills {
+      margin-bottom: 20px;
+    }
+
+    .skills ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .skills li {
+      background-color: #f1f1f1;
+      margin: 8px 0;
+      padding: 8px;
+      border-radius: 4px;
+    }
+
+    /* Experience section */
+    .experience {
+      margin-bottom: 20px;
+    }
+
+    .experience ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .experience li {
+      margin: 15px 0;
+    }
+
+    .experience .job-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #D0004B;
+    }
+
+    .experience .company-name {
+      color: #555;
+    }
+
+    .experience .dates {
+      color: #888;
+    }
+
+    /* Contact Info section */
+    .contact-info {
+      margin-bottom: 20px;
+    }
+
+    .contact-info a {
+      color: #D0004B;
+      text-decoration: none;
+      font-size: 18px;
+      display: block;
+      margin: 5px 0;
+    }
+
+    .contact-info a:hover {
+      text-decoration: underline;
+    }
+
+    /* Editable Section for Dynamic Updates */
+    .edit-profile-button {
+      background-color: #D0004B;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .edit-profile-button:hover {
+      background-color: #D0004B;
+    }
+
+    /* Profile edit form styling */
+    .profile-edit-form {
+      margin-top: 20px;
+      display: none;
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    .profile-edit-form input,
+    .profile-edit-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .profile-edit-form button {
+      padding: 10px 20px;
+      background-color: #D0004B;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .profile-edit-form button:hover {
+      background-color: #D0004B;
+    }
+
+    /* Image upload hidden input */
+    .image-upload-section input[type="file"] {
+      display: none;
+    }
+
+    /* Style for hidden input button */
+    .image-upload-section label {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">ResearchHub</div>
+    <nav>
+      <a href="project.html">Projects</a>
+      <a href="mentorship.html">Mentorship</a>
+    
+      <!-- Dropdown for Resources -->
+      <div class="dropdown">
+        <a href="#resource">Resources</a>
+        <div class="dropdown-content">
+          <div class="nested-dropdown">
+            <a href="#resource">Research Portals</a>
+            <div class="nested-dropdown-content">
+              <a href="https://scholar.google.com/"> G Scholar</a>
+              <a href="https://ieeexplore.ieee.org/Xplore/home.jsp">IEEE</a>
+              <a href="https://www.springernature.com/in/librarians/">SpringBoard</a>
+              <a href="https://www.elsevier.com/">Elsevier</a>
+            </div>
+          </div>
+          <a href="resource.html">Project Tutorials</a>
+        </div>
+      </div>
+      <a href="forums.html">Forums</a>
+      <a href="Profile.html">Profile</a>
+    </nav>
+  </header>
+
+  <!-- Profile Container -->
+  <div class="profile-container">
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <img id="profile-image" src="kushal.jpg" alt="User Image" onclick="triggerFileUpload()">
+      <h1>Pothuluri Kushal Shiva Charith Reddy</h1>
+      <p>AI Solutions Architect | Generative AI Expert for Product Collaterals</p>
+    </div>
+
+    <!-- Profile Content -->
+    <div class="content">
+      
+      <!-- About Me Section -->
+      <div class="about-me">
+        <h2 class="section-title">About Me</h2>
+        <p id="about-me-text">Hello! I'm an AI Solutions Architect with expertise in Generative AI for creating dynamic product collaterals. With a passion for problem-solving and creativity, I have worked on multiple projects that bridge the gap between technology and user experience. I am currently focused on leveraging AI to enhance the design of product brochures and materials.</p>
+      </div>
+
+      <!-- Skills Section -->
+      <div class="skills">
+        <h2 class="section-title">Skills</h2>
+        <ul id="skills-list">
+          <li>AI Solutions Architecture</li>
+          <li>Generative AI</li>
+          <li>Creative Thinking</li>
+          <li>Team Leadership</li>
+          <li>Problem-Solving</li>
+          <li>Collaboration</li>
+          <li>Product Design</li>
+          <li>Data Analysis</li>
+        </ul>
+      </div>
+
+      <!-- Experience Section -->
+      <div class="experience">
+        <h2 class="section-title">Experience</h2>
+        <ul id="experience-list">
+          <li>
+            <div class="job-title">AI Solutions Architect</div>
+            <div class="company-name">Tata Technologies</div>
+            <div class="dates">January 2023 - Present</div>
+            <p>Leading the development of AI-based solutions for the automotive industry, focusing on designing dynamic product brochures through generative AI.</p>
+          </li>
+          <li>
+            <div class="job-title">AI Intern</div>
+            <div class="company-name">Amrita Vishwavidyapeetham</div>
+            <div class="dates">June 2022 - December 2022</div>
+            <p>Assisted in the research and development of AI algorithms for various applications, including data-driven product design models.</p>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contact Info Section -->
+      <div class="contact-info">
+        <h2 class="section-title">Contact Info</h2>
+        <a href="mailto:pothuluri.kushal@example.com">Email: pothuluri.kushal@example.com</a>
+        <a href="https://www.linkedin.com/in/pothuluri-kushal-shiva-charith-reddy" target="_blank">LinkedIn: linkedin.com/in/pothuluri-kushal-shiva-charith-reddy</a>
+        <a href="https://github.com/pothuluri-kushal" target="_blank">GitHub: github.com/pothuluri-kushal</a>
+      </div>
+
+      <!-- Edit Profile Button -->
+      <button class="edit-profile-button" onclick="toggleEditForm()">Edit Profile</button>
+
+      <!-- Profile Edit Form -->
+      <div class="profile-edit-form" id="profile-edit-form">
+        <h2>Edit Profile</h2>
+        <label for="about-me-input">About Me:</label>
+        <textarea id="about-me-input">Hello! I'm an AI Solutions Architect with expertise in Generative AI for creating dynamic product collaterals...</textarea>
+        <label for="skills-input">Skills (comma separated):</label>
+        <input type="text" id="skills-input" value="AI Solutions Architecture, Generative AI, Creative Thinking, Team Leadership, Problem-Solving, Collaboration">
+        <label for="experience-input">Experience (comma separated):</label>
+        <input type="text" id="experience-input" value="AI Solutions Architect, Tata Technologies; AI Intern, Amrita Vishwavidyapeetham">
+        <button onclick="saveProfileChanges()">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Function to trigger file upload when profile image is clicked
+    function triggerFileUpload() {
+      document.getElementById('profile-pic-upload').click();
+    }
+
+    // Update the profile image with selected file
+    function updateProfileImage(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('profile-image').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    // Toggle profile edit form visibility
+    function toggleEditForm() {
+      const form = document.getElementById('profile-edit-form');
+      form.style.display = form.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // Save profile changes
+    function saveProfileChanges() {
+      const aboutMeText = document.getElementById('about-me-input').value;
+      const skillsText = document.getElementById('skills-input').value.split(',').map(skill => skill.trim());
+      const experienceText = document.getElementById('experience-input').value.split(',').map(exp => exp.trim());
+
+      // Update About Me
+      document.getElementById('about-me-text').innerText = aboutMeText;
+
+      // Update Skills
+      const skillsList = document.getElementById('skills-list');
+      skillsList.innerHTML = skillsText.map(skill => `<li>${skill}</li>`).join('');
+
+      // Update Experience
+      const experienceList = document.getElementById('experience-list');
+      experienceList.innerHTML = experienceText.map(exp => `
+        <li>
+          <div class="job-title">${exp}</div>
+        </li>
+      `).join('');
+
+      // Close the edit form
+      toggleEditForm();
+    }
+  </script>
+
+</body>
+</html>

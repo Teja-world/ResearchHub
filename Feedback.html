@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Research Feedback</title>
+    <style>
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 70%;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin: 10px 0 5px;
+        }
+
+        textarea {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #b14c9b;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #b14c9b;
+        }
+
+        #feedbackList {
+            margin-top: 20px;
+        }
+
+        .feedbackItem {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Research Feedback</h1>
+
+        <!-- Feedback Form -->
+        <form id="feedbackForm">
+            <label for="feedback">Your Feedback:</label>
+            <textarea id="feedback" name="feedback" placeholder="Write your feedback here..." required></textarea>
+
+            <button type="submit">Submit Feedback</button>
+        </form>
+
+        <!-- Feedback Display Section -->
+        <h2>Previous Feedback</h2>
+        <div id="feedbackList"></div>
+    </div>
+
+    <script>
+        // Load existing feedback from localStorage
+        window.onload = function() {
+            loadFeedback();
+        };
+
+        // Handle form submission
+        document.getElementById("feedbackForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const feedback = document.getElementById("feedback").value;
+
+            if (feedback) {
+                const feedbackData = { feedback };
+
+                // Save feedback to localStorage (or send to a server in real applications)
+                let storedFeedback = JSON.parse(localStorage.getItem("feedbackList")) || [];
+                storedFeedback.push(feedbackData);
+                localStorage.setItem("feedbackList", JSON.stringify(storedFeedback));
+
+                // Reset the form
+                document.getElementById("feedbackForm").reset();
+
+                // Update feedback display
+                loadFeedback();
+            } else {
+                alert("Please enter your feedback.");
+            }
+        });
+
+        // Load and display feedback
+        function loadFeedback() {
+            const feedbackList = JSON.parse(localStorage.getItem("feedbackList")) || [];
+            const feedbackContainer = document.getElementById("feedbackList");
+            feedbackContainer.innerHTML = '';
+
+            feedbackList.forEach(item => {
+                const feedbackElement = document.createElement("div");
+                feedbackElement.classList.add("feedbackItem");
+                feedbackElement.innerHTML = `
+                    <p>${item.feedback}</p>
+                `;
+                feedbackContainer.appendChild(feedbackElement);
+            });
+        }
+    </script>
+
+</body>
+</html>

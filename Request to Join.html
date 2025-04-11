@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Request to Join</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      background: url('student.jpg') no-repeat center center;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+
+    header {
+      background-color: #D0004B;;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    main {
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+      background: rgba(255, 255, 255, 0.74);
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      margin-bottom: 15px;
+      color: #D0004B;;
+    }
+
+    p {
+      margin-bottom: 10px;
+    }
+
+    form {
+      margin-top: 20px;
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    form button {
+      background-color: white;
+      color: #D0004B;
+      outline: 2px solid #D0004B;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    form button:hover {
+      background-color: #D0004B;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Request to Join</h1>
+  </header>
+
+  <main>
+    <h2 id="work-title"></h2>
+    <p id="work-description"></p>
+    <p><strong>Faculty:</strong> <span id="work-faculty"></span></p>
+
+    <form id="request-form">
+      <label for="student-name">Your Name:</label>
+      <input type="text" id="student-name" required>
+
+      <label for="student-email">Your Email:</label>
+      <input type="email" id="student-email" required>
+
+      <label for="request-message">Message:</label>
+      <textarea id="request-message" rows="4" placeholder="Why are you interested in this work?" required></textarea>
+
+      <button type="submit">Send Request</button>
+    </form>
+  </main>
+
+  <script>
+    // Load work details from localStorage
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('work-title').textContent = localStorage.getItem('workTitle');
+      document.getElementById('work-description').textContent = localStorage.getItem('workDescription');
+      document.getElementById('work-faculty').textContent = localStorage.getItem('workFaculty');
+    });
+
+    // Handle form submission
+    document.getElementById('request-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('student-name').value;
+      const email = document.getElementById('student-email').value;
+      const message = document.getElementById('request-message').value;
+
+      // Popup message for request confirmation
+      alert('Request sent successfully!');
+    });
+  </script>
+</body>
+</html>

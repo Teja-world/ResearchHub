@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Forum Page</title>
+  
+  <!-- CSS Styles -->
+  <style>
+    /* Reset some default styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Body with a random background image from Unsplash */
+    body {
+      background: url('student.jpg') no-repeat center center;
+      background-attachment: fixed;
+      background-size: cover;
+      color: #333;
+    }
+
+    /* Header */
+    header {
+      background-color: #D0004B;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    header nav a {
+      margin: 0 1rem;
+      color: white;
+      text-decoration: none;
+    }
+
+    header nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* Mentorship Section */
+    .mentorship-header {
+      text-align: center;
+      padding: 3rem 1rem;
+      background-color: #D0004B;
+      color: white;
+    }
+
+    .mentorship-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .mentorship-header p {
+      font-size: 1.2rem;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #D0004B;
+    }
+
+    .search-bar {
+      display: flex;
+      margin-bottom: 20px;
+    }
+
+    .search-bar input {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px 0 0 5px;
+    }
+
+    .search-bar button {
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      background-color: white;
+      color: #D0004B;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+    }
+
+    .search-bar button:hover {
+      
+      background-color: #D0004B;
+      color: white;
+    }
+
+    .question-list {
+      list-style-type: none;
+      margin-top: 20px;
+    }
+
+    .question-item {
+      padding: 15px;
+      border-bottom: 1px solid #ddd;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .question-item:hover {
+      background-color: #f0f0f0;
+    }
+
+    .answer-dropdown {
+      display: none;
+      padding-left: 20px;
+    }
+
+    .answer-item {
+      padding: 5px 0;
+    }
+
+    .add-answer-form {
+      margin-top: 10px;
+    }
+
+    .add-answer-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .add-answer-form button {
+      padding: 10px 20px;
+      background-color: #D0004B;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .add-answer-form button:hover {
+      background-color: #D0004B;
+    }
+
+    .add-question-form {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .add-question-form input,
+    .add-question-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .add-question-form button {
+      padding: 10px 20px;
+      background-color: #D0004B;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .add-question-form button:hover {
+      background-color: #D0004B;
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-bottom: 20px;
+      cursor: pointer;
+      color: #D0004B;
+    }
+
+    .back-button:hover {
+      text-decoration: underline;
+    }
+
+    .answers-section {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">ResearchHub</div>
+    <nav>
+      <a href="homesample.html">About Us</a>
+      <a href="project.html">Projects</a>
+      <a href="mentorship.html">Mentorship</a>
+      <a href="forums.html">Forums</a>
+      <a href="resource.html">Resources</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h1> Forum Page</h1>
+
+    <!-- Search Bar and Add Button -->
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search questions...">
+      <button id="searchButton">Search</button>
+      <button id="addQuestionButton" style="margin-left: 10px;">+</button>
+    </div>
+
+    <!-- Add Question Form -->
+    <div class="add-question-form" id="addQuestionForm">
+      <h3>Add New Question</h3>
+      <input type="text" id="newQuestionTitle" placeholder="Question Title">
+      <textarea id="newQuestionContent" placeholder="Question Content" rows="4"></textarea>
+      <button id="submitQuestionButton">Add Question</button>
+    </div>
+
+    <!-- Question List -->
+    <ul class="question-list" id="questionList">
+      <!-- Questions will be dynamically added here -->
+    </ul>
+
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Sample questions data
+    let questions = [
+      {
+        id: 1,
+        title: "How to implement AI in automobiles?",
+        content: "I'm looking for ways to integrate AI to improve safety and automation in vehicles. Any ideas?",
+        answers: [
+          { text: "A. Look into computer vision systems." },
+          { text: "A. Research deep learning for autonomous navigation." }
+        ]
+      },
+      {
+        id: 2,
+        title: "What are the best resources for machine learning?",
+        content: "I'm starting with ML. Can anyone suggest good online courses or books?",
+        answers: [
+          { text: "A. Check out 'Hands-On Machine Learning' by Aurelien Geron." },
+          { text: "A. Coursera has a good specialization from Andrew Ng." }
+        ]
+      },
+      {
+        id: 3,
+        title: "What is the future of quantum computing?",
+        content: "What are the most exciting developments in quantum computing?",
+        answers: [
+          { text: "A. Quantum algorithms are advancing rapidly." },
+          { text: "A. Quantum supremacy is being tested in labs." }
+        ]
+      },
+      {
+        id: 4,
+        title: "How to get started with web development?",
+        content: "Can anyone recommend resources for beginners in web development?",
+        answers: [
+          { text: "A. Start with HTML, CSS, and JavaScript basics." },
+          { text: "A. FreeCodeCamp has excellent tutorials." }
+        ]
+      },
+      {
+        id: 5,
+        title: "Best programming languages for AI?",
+        content: "Which languages should I learn to build AI applications?",
+        answers: [
+          { text: "A. Python is the most widely used for AI." },
+          { text: "A. R is also great for data analysis and AI." }
+        ]
+      },
+      {
+        id: 6,
+        title: "How do I improve my coding skills?",
+        content: "What are some effective ways to improve as a developer?",
+        answers: [
+          { text: "A. Practice coding daily." },
+          { text: "A. Work on open-source projects." }
+        ]
+      },
+      {
+        id: 7,
+        title: "What is DevOps?",
+        content: "Can someone explain what DevOps is and how it works?",
+        answers: [
+          { text: "A. DevOps integrates development and operations teams." },
+          { text: "A. It focuses on automation and continuous delivery." }
+        ]
+      },
+      {
+        id: 8,
+        title: "What is the difference between AI and machine learning?",
+        content: "Can you clarify the distinction between AI and ML?",
+        answers: [
+          { text: "A. AI is a broader concept; ML is a subset of AI." },
+          { text: "A. Machine learning focuses on learning from data." }
+        ]
+      },
+      {
+        id: 9,
+        title: "What are microservices?",
+        content: "Can anyone explain the concept of microservices?",
+        answers: [
+          { text: "A. Microservices are a style of software architecture." },
+          { text: "A. Each service runs independently and is loosely coupled." }
+        ]
+      },
+      {
+        id: 10,
+        title: "What is blockchain technology?",
+        content: "How does blockchain work and where is it used?",
+        answers: [
+          { text: "A. Blockchain is a decentralized ledger system." },
+          { text: "A. It is widely used in cryptocurrency and supply chain." }
+        ]
+      }
+    ];
+
+    // DOM Elements
+    const questionList = document.getElementById('questionList');
+    const searchInput = document.getElementById('searchInput');
+    const searchButton = document.getElementById('searchButton');
+    const addQuestionButton = document.getElementById('addQuestionButton');
+    const addQuestionForm = document.getElementById('addQuestionForm');
+    const newQuestionTitle = document.getElementById('newQuestionTitle');
+    const newQuestionContent = document.getElementById('newQuestionContent');
+    const submitQuestionButton = document.getElementById('submitQuestionButton');
+
+    // Function to render the question list
+    function renderQuestions(questionsToRender) {
+      questionList.innerHTML = ''; // Clear existing list
+      questionsToRender.forEach(question => {
+        const questionItem = document.createElement('li');
+        questionItem.classList.add('question-item');
+        questionItem.innerHTML = `Q. ${question.title}`;
+        questionItem.onclick = () => toggleAnswers(question.id);
+
+        const answerDropdown = document.createElement('div');
+        answerDropdown.classList.add('answer-dropdown');
+        question.answers.forEach(answer => {
+          const answerItem = document.createElement('div');
+          answerItem.classList.add('answer-item');
+          answerItem.textContent = answer.text;
+          answerDropdown.appendChild(answerItem);
+        });
+
+        const addAnswerForm = document.createElement('div');
+        addAnswerForm.classList.add('add-answer-form');
+        const answerTextArea = document.createElement('textarea');
+        answerTextArea.placeholder = "Add your answer...";
+        addAnswerForm.appendChild(answerTextArea);
+
+        const addAnswerButton = document.createElement('button');
+        addAnswerButton.textContent = "Add Answer";
+        addAnswerButton.onclick = () => addAnswer(question.id, answerTextArea.value);
+        addAnswerForm.appendChild(addAnswerButton);
+
+        questionItem.appendChild(answerDropdown);
+        questionItem.appendChild(addAnswerForm);
+        questionList.appendChild(questionItem);
+      });
+    }
+
+    // Function to toggle answers dropdown visibility
+    function toggleAnswers(questionId) {
+      const questionItem = document.querySelectorAll('.question-item')[questionId - 1];
+      const dropdown = questionItem.querySelector('.answer-dropdown');
+      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // Function to add an answer
+    function addAnswer(questionId, answer) {
+      if (answer.trim() !== '') {
+        const question = questions.find(q => q.id === questionId);
+        question.answers.push({ text: `A. ${answer}` });
+        renderQuestions(questions);
+      }
+    }
+
+    // Function to handle searching questions
+    searchButton.onclick = () => {
+      const query = searchInput.value.toLowerCase();
+      const filteredQuestions = questions.filter(q =>
+        q.title.toLowerCase().includes(query)
+      );
+      renderQuestions(filteredQuestions);
+    };
+
+    // Function to toggle the Add Question form
+    addQuestionButton.onclick = () => {
+      addQuestionForm.style.display = addQuestionForm.style.display === 'block' ? 'none' : 'block';
+    };
+
+    // Function to handle adding a new question
+    submitQuestionButton.onclick = () => {
+      const title = newQuestionTitle.value.trim();
+      const content = newQuestionContent.value.trim();
+      if (title && content) {
+        const newQuestion = {
+          id: questions.length + 1,
+          title: title,
+          content: content,
+          answers: []
+        };
+        questions.push(newQuestion);
+        renderQuestions(questions);
+        newQuestionTitle.value = '';
+        newQuestionContent.value = '';
+        addQuestionForm.style.display = 'none';
+      }
+    };
+
+    // Initial render of all questions
+    renderQuestions(questions);
+
+  </script>
+</body>
+</html>

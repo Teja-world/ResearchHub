@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore Ideas</title>
+  <style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(rgba(14, 14, 14, 0.75), rgba(14, 14, 14, 0.70)), 
+                    url('amritablack.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+        scroll-behavior: smooth;
+    }
+
+    .container, .idea-section, .suggestion-box {
+        text-align: center;
+        color: white;
+        display: none; /* Initially hidden */
+    }
+
+    .container h1, .idea-section h2 {
+        font-size: 2.2rem; /* Reduced size */
+    }
+
+    .container p, .idea-section p {
+        font-size: 1.2rem; /* Reduced size */
+        margin-top: 1rem;
+    }
+
+    .idea-box {
+        display: inline-block;
+        background-color: rgba(30, 30, 30, 0.8);
+        border: 2px solid #D0004B;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 10px;
+        color: white;
+        width: 200px;
+        height: 150px;
+        text-align: center;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        text-decoration: none; /* Remove underline */
+        opacity: 0; /* Initially hidden */
+        vertical-align: top; /* Align the boxes at the top */
+    }
+
+    .idea-box:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 10px #D0004B;
+    }
+
+    .suggestion-box {
+        margin-top: 50px;
+        display: none;
+    }
+
+    .suggestion-box textarea {
+        width: 80%;
+        height: 100px;
+        border-radius: 10px;
+        border: 2px solid #ad650d;
+        padding: 10px;
+        font-size: 1rem;
+    }
+
+    .suggestion-box button {
+        margin-top: 10px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        color: white;
+        background-color: #D0004B;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .suggestion-box button:hover {
+        background-color: #D0004B;
+    }
+
+    .confirmation-message {
+        font-size: 1.2rem;
+        margin-top: 10px;
+        color: #00ff00;
+    }
+
+    .back-button-container {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 10;
+    }
+
+    .back-button {
+        padding: 10px 20px;
+        font-size: 1rem;
+        color: rgb(255, 255, 255);
+        background-color: rgba(0, 4, 6, 0.8);
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .back-button:hover {
+        background-color: #D0004B;
+    }
+
+  </style>
+</head>
+
+<!-- Rest of the HTML and JavaScript remains exactly the same -->
+<body>
+
+    <div class="back-button-container">
+        <a href="homesample.html">
+            <button class="back-button">Back</button>
+        </a>
+    </div>
+
+  <div class="container">
+    <h1>Welcome to the Idea Hub!</h1>
+    <p>Explore, innovate, and share your brilliant ideas.</p>
+  </div>
+
+  <div class="idea-section">
+    <h2>Here are some amazing ideas to inspire you:</h2>
+    <a href="https://seniorexecutive.com/sustainabilty-podcasts-for-startup-leaders/" class="idea-box"><p>Start a podcast on sustainability!</p></a>
+    <a href="https://99designs.com/blog/engineering/book-club-for-tech-leads/" class="idea-box"><p>Create a book club for tech enthusiasts!</p></a>
+    <a href="https://hackxamrita.netlify.app/" class="idea-box"><p>Organize a hackathon for social good!</p></a>
+    <a href="https://developersappindia.com/building-apps-for-environmental-sustainability-promoting-eco-friendly-practices" class="idea-box"><p>Develop an app for environmental awareness!</p></a>
+    <a href="https://www.fundsforngos.org/proposals/an-example-sample-project-proposal-on-setting-up-community-gardens/" class="idea-box"><p>Create a community garden initiative!</p></a>
+    <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7364393/" class="idea-box"><p>Social media and Mental health!</p></a>
+    <a href="https://www.sciencegate.app/keyword/7636" class="idea-box"><p>Software Engineering</p></a>
+    <div class="idea-box" onclick="openSuggestionBox()"><p>Other</p></div>
+  </div>
+
+  <div class="suggestion-box">
+    <h2>Have an idea? Share it with us!</h2>
+    <textarea placeholder="Write your idea here..."></textarea>
+    <br>
+    <button onclick="submitIdea()">Submit</button>
+    <p class="confirmation-message" style="display: none;">Your idea is good. We'll let others know about it!</p>
+  </div>
+
+  <script>
+    // Show sections after page load
+    window.addEventListener('load', () => {
+      document.querySelector(".container").style.display = "block";
+      setTimeout(() => {
+        document.querySelector(".idea-section").style.display = "block";
+        const ideaBoxes = document.querySelectorAll('.idea-box');
+        ideaBoxes.forEach((box, index) => {
+          setTimeout(() => {
+            box.style.opacity = '1';
+          }, index * 300); // Stagger the opacity for animation effect
+        });
+      }, 1000);
+    });
+
+    function smoothScroll(targetPosition, duration) {
+      const startPosition = window.pageYOffset;
+      const distance = targetPosition - startPosition;
+      let startTime = null;
+
+      function animation(currentTime) {
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const progress = Math.min(timeElapsed / duration, 1);
+        
+        // Easing function for smoother animation
+        const ease = t => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+        
+        window.scrollTo(0, startPosition + distance * ease(progress));
+        
+        if (timeElapsed < duration) {
+          requestAnimationFrame(animation);
+        }
+      }
+      
+      requestAnimationFrame(animation);
+    }
+
+    function openSuggestionBox() {
+      const suggestionBox = document.querySelector(".suggestion-box");
+      suggestionBox.style.display = "block";
+      
+      // Calculate target position (70% of viewport height)
+      const targetPosition = window.innerHeight * 0.7;
+      
+      // Smooth scroll with custom duration (1000ms = 1 second)
+      smoothScroll(targetPosition, 1000);
+    }
+
+    function submitIdea() {
+      const ideaText = document.querySelector("textarea").value;
+      const confirmMessage = document.querySelector(".confirmation-message");
+      const submitButton = document.querySelector(".suggestion-box button");
+      
+      if (ideaText) {
+        submitButton.style.display = "none";
+        confirmMessage.style.display = "block";
+        
+        setTimeout(() => {
+          confirmMessage.style.display = "none";
+          
+          // Smooth scroll to top
+          smoothScroll(0, 1000);
+          
+          setTimeout(() => {
+            document.querySelector(".suggestion-box").style.display = "none";
+            submitButton.style.display = "inline-block";
+            
+            // Smooth scroll back down
+            smoothScroll(window.innerHeight * 0.7, 1000);
+          }, 1000);
+          
+          document.querySelector("textarea").value = "";
+        }, 5000);
+      } else {
+        alert("Please write your idea before submitting.");
+      }
+    }
+  </script>  
+
+</body>
+</html>

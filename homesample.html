@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Research Collaboration Platform</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #0e0e0e;
+    }
+
+    /* Header */
+    header {
+      background: none;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      z-index: 10;
+      box-sizing: border-box;
+    }
+
+    header .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    header nav {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    header nav a {
+      font-size: 1rem;
+      color: white;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      transition: all 0.3s ease-in-out;
+      position: relative;
+    }
+
+    header nav a:hover {
+      color: #D0004B;
+    }
+
+    /* Dropdown Menu */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #333;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      padding: 10px 0;
+      border-radius: 5px;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown-content a {
+      color: white;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #575757;
+    }
+
+    /* Nested Dropdown */
+    .nested-dropdown {
+      position: relative;
+    }
+
+    .nested-dropdown-content {
+      display: none;
+      position: absolute;
+      left: 100%;
+      top: 0;
+      background-color: #333;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      padding: 10px 0;
+      border-radius: 5px;
+    }
+
+    .nested-dropdown:hover .nested-dropdown-content {
+      display: block;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      background: url('amritacampus.jpg') no-repeat center center/cover;
+      height: 80vh; /* Adjust the height for it to cover most of the view */
+      color: white;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
+
+    .hero h1,
+    .hero p,
+    .hero .btn {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero .btn {
+        padding: 0.75rem 1.5rem;
+        margin: 0.5rem; /* Adjusted margin */
+        background-color: #D0004B;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+      
+    }
+
+    .hero .btn:hover {
+      background-color: #D0004B;
+    }
+
+    /* Features Section */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+      margin: 2rem;
+    }
+
+    .feature-box {
+      background: white;
+      padding: 1.5rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .feature-box h3 {
+      color: #2d89ef;
+      margin-bottom: 1rem;
+    }
+
+    .feature-box p {
+      color: #555;
+    }
+
+    .feature-box:nth-child(1) {
+      background-color: #ffebcd;
+    }
+
+    .feature-box:nth-child(2) {
+      background-color: #d3f4f0;
+    }
+
+    .feature-box:nth-child(3) {
+      background-color: #f7d1e1;
+    }
+
+    .feature-box:nth-child(4) {
+      background-color: #e0f7fa;
+    }
+
+    .feature-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Main and About Sections */
+    .main-section {
+      height: 100vh;
+      background-color: #3498db;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      position: relative;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .about-section {
+      height: 100vh;
+      background-color: #2ecc71;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      position: relative;
+      top: -100vh;
+    }
+
+    .slide-up-button {
+      padding: 1rem 2rem;
+      background-color: #ffffff;
+      color: #3498db;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: background-color 0.3s;
+    }
+
+    .slide-up-button:hover {
+      background-color: #dddddd;
+    }
+
+    /* About Us Section Styles */
+    .about-us {
+      text-align: center;
+      margin: 2rem auto;
+      padding: 1rem 0;
+      color: white;
+      background-color: #1e1e1e;
+      border-top: 2px solid #080808;
+      padding-top: 2rem;
+    }
+
+    .about-us h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .about-us p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.2;
+      padding-bottom: 2rem;
+    }
+     /* T&C Link Styles */
+     .terms-link {
+      display: inline-block;
+      color: #D0004B;
+      font-size: 1rem;
+      text-decoration: none;
+      margin-top: 1rem;
+      right:50%;
+      justify-content: center;
+    }
+
+    .terms-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background-color: #fff;
+      color: #333;
+      padding: 2rem;
+      max-width: 600px;
+      width: 100%;
+      border-radius: 5px;
+      overflow-y: auto;
+      max-height: 80vh;
+    }
+
+    .modal-header {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .modal-body {
+      font-size: 1.1rem;
+    }
+
+    .close-btn {
+      background-color: #D0004B;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-size: 1rem;
+      float: right;
+    }
+
+    .close-btn:hover {
+      background-color: #D0004B;
+    }
+    /* Popup Styles */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+  visibility: hidden; /* Initially hidden */
+  opacity: 0; /* Initially transparent */
+  transition: visibility 0s, opacity 0.5s ease;
+}
+
+.popup-content {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.popup h2 {
+  margin-bottom: 1rem;
+}
+
+.popup-button {
+  padding: 0.75rem 1.5rem;
+  background-color: #D0004B;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.popup-button:hover {
+  background-color: #D0004B;
+}
+
+  </style>
+</head>
+<body>
+   <!-- Popup for Login Prompt -->
+<!--
+<div id="login-popup" class="popup">
+  <div class="popup-content">
+    <h2>Please login to continue</h2>
+    <button id="login-button" class="popup-button">Login</button>
+  </div>
+</div>
+-->
+  <header>
+    <div class="logo">ResearchHub</div>
+    <nav>
+      <a href="project.html">Projects</a>
+      <a href="mentorship.html">Mentorship</a>
+    
+      <!-- Dropdown for Resources -->
+      <div class="dropdown">
+        <a href="#resource">Resources</a>
+        <div class="dropdown-content">
+          <div class="nested-dropdown">
+            <a href="#resource">Research Portals</a>
+            <div class="nested-dropdown-content">
+              <a href="https://scholar.google.com/"> G Scholar</a>
+              <a href="https://ieeexplore.ieee.org/Xplore/home.jsp">IEEE</a>
+              <a href="https://www.springernature.com/in/librarians/">SpringBoard</a>
+              <a href="https://www.elsevier.com/">Elsevier</a>
+            </div>
+          </div>
+          <a href="resource.html">Project Tutorials</a>
+        </div>
+      </div>
+      <a href="forums.html">Forums</a>
+      <a href="Profile.html">Profile</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <h1>Fostering collaboration and innovation in research.</h1>
+    <p>Connect, share ideas, and create solutions.</p>
+    <a href="exploreideas.html" class="btn">Explore Ideas</a>
+    <a href="Collaborative Platform.html" class="btn">Collab</a>
+  </div>
+  
+
+  <!-- About Us Section (already in your code, but moved here for clarity) -->
+  <section class="about-us" id="about">
+    <h2>About Us</h2>
+    <p>We are dedicated to building a platform that enables researchers to connect, collaborate, and share resources. Our goal is to facilitate academic and professional growth through an accessible and comprehensive network of experts and learners from various fields of research.</p>
+  </section>
+ <!-- T&C Link -->
+ <a href="#" class="terms-link" onclick="openModal()">T&C</a>
+</section>
+
+<!-- Modal for Terms & Conditions -->
+<div id="termsModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close-btn" onclick="closeModal()">×</span>
+      <h3>Terms & Conditions</h3>
+    </div>
+    <div class="modal-body">
+      <p>By using this platform, you agree to the following terms and conditions:</p>
+      <ul>
+        <li>Term 1: Use of platform.</li>
+        <li>Term 2: Responsibilities of the users.</li>
+        <li>Term 3: Privacy policies.</li>
+        <li>Term 4: Data usage and sharing.</li>
+        <li>Term 5: Intellectual property rights.</li>
+        <li>Term 6: Disclaimer of liability.</li>
+        <!-- Add more terms as needed -->
+      </ul>
+    </div>
+   
+  <script>
+    // JavaScript for displaying the login popup
+document.addEventListener('DOMContentLoaded', () => {
+  const popup = document.getElementById('login-popup');
+  const loginButton = document.getElementById('login-button');
+
+  // Show the popup after page load
+  setTimeout(() => {
+    popup.style.visibility = 'visible';
+    popup.style.opacity = '1';
+  }, 500); // 0.5-second delay after page load
+
+  // Add click event to the login button to redirect to a login page
+  loginButton.addEventListener('click', () => {
+    window.location.href = 'login.html'; // Change this to your actual login page
+  });
+});
+
+    // JavaScript for sliding effect
+    document.addEventListener('DOMContentLoaded', () => {
+      const mainSection = document.getElementById('main-section');
+      const aboutSection = document.getElementById('about');
+      const slideUpButton = document.getElementById('slide-up-button');
+      const slideDownButton = document.getElementById('slide-down-button');
+
+      // Slide up to reveal the About Us section
+      slideUpButton.addEventListener('click', () => {
+        mainSection.style.transform = 'translateY(-100vh)';
+        aboutSection.style.transform = 'translateY(0)';
+      });
+
+      // Slide down to go back to the Main section
+      slideDownButton.addEventListener('click', () => {
+        mainSection.style.transform = 'translateY(0)';
+        aboutSection.style.transform = 'translateY(-100vh)';
+      });
+    });
+    //tc
+    function openModal() {
+      document.getElementById("termsModal").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("termsModal").style.display = "none";
+    }
+    
+  </script>
+</body>
+</html>
